@@ -1,0 +1,58 @@
+replicaCount: 1
+
+image:
+  repository: ghcr.io/fitnest-backend/iam-service
+  tag: "45de0fb"
+  pullPolicy: IfNotPresent
+  imagePullSecrets:
+    - name: ghcr-secret
+
+service:
+  type: ClusterIP
+  port: 8080
+
+istio:
+  enabled: true
+  host: "iam-service"
+
+env:
+  JWT_SECRET: your-jwt-secret-change-in-production
+  JWT_ISSUER: iam-service
+  JWT_ACCESS_TTL_SECONDS: "3600"
+  JWT_REFRESH_TTL_SECONDS: "604800"
+  SPRING_PROFILES_ACTIVE: dev
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-iam.fitnest-dev.svc.cluster.local:5432/fitnest_iam
+  SPRING_DATASOURCE_USERNAME: fitnest_iam
+  SPRING_DATASOURCE_PASSWORD: iam_password_123
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+  SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  SPRING_REDIS_HOST: redis.fitnest-dev.svc.cluster.local
+  SPRING_REDIS_PORT: "6379"
+  SPRING_REDIS_PASSWORD: ""
+  SPRING_REDIS_TIMEOUT: 2000ms
+  SPRING_MAIL_HOST: smtp.gmail.com
+  SPRING_MAIL_PORT: "587"
+  SPRING_MAIL_USERNAME: ""
+  SPRING_MAIL_PASSWORD: ""
+  SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+  SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+  KAFKA_BOOTSTRAP_SERVERS: kafka-service.fitnest-dev.svc.cluster.local:9092
+  OTP_TTL_SECONDS: "300"
+  OTP_MAX_VERIFY_ATTEMPTS: "3"
+  OTP_RESEND_COOLDOWN_SECONDS: "30"
+  OTP_RATE_LIMIT_MAX_ATTEMPTS: "5"
+  OTP_RATE_LIMIT_WINDOW_MINUTES: "15"
+  OTP_RATE_LIMIT_COOLDOWN_SECONDS: "60"
+  OTP_RATE_LIMIT_MIN_COOLDOWN_SECONDS: "5"
+  OTP_RATE_LIMIT_ERROR_MESSAGE_THRESHOLD_SECONDS: "30"
+  LOGGING_LEVEL_ROOT: INFO
+  LOGGING_LEVEL_AZ_FITNEST_IAM: DEBUG
+  LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
