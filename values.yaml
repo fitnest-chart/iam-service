@@ -1,11 +1,7 @@
 replicaCount: 1
 image:
   repository: ghcr.io/fitnest-backend/iam-service
-<<<<<<< HEAD
   tag: "development-14b5f1a"
-=======
-  tag: "development-9426c73"
->>>>>>> b182fd2 (Refactor: Remove email dependencies and enforce mobile-only auth)
   pullPolicy: IfNotPresent
   imagePullSecrets:
     - name: ghcr-secret
