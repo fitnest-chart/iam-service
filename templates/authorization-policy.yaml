@@ -17,7 +17,14 @@ spec:
     to:
     - operation:
         methods: ["GET", "POST", "PUT", "DELETE"]
-        paths: ["/api/v1/internal/*"]
+        paths: ["/api/v1/internal*"]
+  - to:
+    - operation:
+        methods: ["GET", "POST", "PUT", "DELETE"]
+        paths: ["/api/v1/internal*"]
+    when:
+    - key: request.headers[x-internal-token]
+      values: ["fitnest-internal-token-2024-secure-v1"]
   - to:
     - operation:
         methods: ["GET"]
