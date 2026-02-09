@@ -16,6 +16,14 @@ istio:
   authorization:
     internalCallers:
       - "cluster.local/ns/fitnest-dev/sa/user-service"
+      - "cluster.local/ns/fitnest-dev/sa/payment-service"
+      - "cluster.local/ns/fitnest-dev/sa/catalog-service"
+      - "cluster.local/ns/fitnest-dev/sa/commerce-service"
+      - "cluster.local/ns/fitnest-dev/sa/fitmarket-service"
+      - "cluster.local/ns/fitnest-dev/sa/notifications-service"
+      - "cluster.local/ns/fitnest-dev/sa/subscription-service"
+      - "cluster.local/ns/fitnest-dev/sa/support-service"
+      - "cluster.local/ns/fitnest-dev/sa/media-service"
 env:
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest

@@ -14,6 +14,7 @@ spec:
       labels:
         {{- include "iam-service.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ include "iam-service.fullname" . }}
       {{- with .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
