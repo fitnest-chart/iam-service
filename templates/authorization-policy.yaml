@@ -11,14 +11,17 @@ spec:
       {{- include "iam-service.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
-  - to:
+  - from:
+    - source:
+        principals: {{ .Values.istio.authorization.internalCallers | toJson }}
+    to:
     - operation:
         methods: ["GET", "POST", "PUT", "DELETE"]
-        paths: ["/api/v1/internal*"]
+        paths: ["/api/v1/internal/*", "/api/v1/internal/**"]
 
   - to:
     - operation:
-        methods: ["GET"]
+        methods: ["GET"]  
         paths:
           - "/v3/api-docs/*"
           - "/v3/api-docs"

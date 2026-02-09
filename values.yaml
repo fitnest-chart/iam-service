@@ -11,6 +11,11 @@ service:
 istio:
   enabled: true
   host: "iam-service"
+  mtls:
+    mode: STRICT
+  authorization:
+    internalCallers:
+      - "cluster.local/ns/fitnest-dev/sa/user-service"
 env:
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
