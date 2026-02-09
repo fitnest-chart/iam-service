@@ -17,7 +17,7 @@ env:
   JWT_ACCESS_TTL_SECONDS: "3600"
   JWT_REFRESH_TTL_SECONDS: "604800"
   SPRING_PROFILES_ACTIVE: dev
-  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-iam.fitnest-dev.svc.cluster.local:5432/fitnest_iam
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-iam.fitnest-dev.svc.cluster.local:5432/fitnest_iam?sslmode=disable
   SPRING_DATASOURCE_USERNAME: fitnest_iam
   SPRING_DATASOURCE_PASSWORD: iam_password_123
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
