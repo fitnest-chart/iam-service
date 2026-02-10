@@ -24,6 +24,7 @@ istio:
       - "cluster.local/ns/fitnest-dev/sa/subscription-service"
       - "cluster.local/ns/fitnest-dev/sa/support-service"
       - "cluster.local/ns/fitnest-dev/sa/media-service"
+      - "cluster.local/ns/fitnest-dev/sa/api-gateway"
 env:
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
