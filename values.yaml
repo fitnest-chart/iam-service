@@ -25,17 +25,18 @@ istio:
       - "cluster.local/ns/fitnest-dev/sa/fitness-plan-service"
       - "cluster.local/ns/fitnest-dev/sa/api-gateway"
 env:
+  JAVA_OPTS: "-XX:TieredStopAtLevel=1 -Xss256k -Xmx448m"
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
   JWT_REFRESH_TTL_SECONDS: "604800"
   SPRING_PROFILES_ACTIVE: dev
-  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-identity.fitnest-dev.svc.cluster.local:5432/fitnest_identity?sslmode=disable
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-identity:5432/fitnest_identity?sslmode=disable
   SPRING_DATASOURCE_USERNAME: fitnest_identity
   SPRING_DATASOURCE_PASSWORD: identity_password_123
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
-  SPRING_REDIS_HOST: redis.fitnest-dev.svc.cluster.local
+  SPRING_REDIS_HOST: redis
   SPRING_REDIS_PORT: "6379"
   SPRING_REDIS_PASSWORD: ""
   SPRING_REDIS_TIMEOUT: 2000ms
@@ -45,7 +46,7 @@ env:
   SPRING_MAIL_PASSWORD: "ejxg xmcz xrrt uzxm"
   SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
   SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
-  KAFKA_BOOTSTRAP_SERVERS: kafka-service.fitnest-dev.svc.cluster.local:9092
+  KAFKA_BOOTSTRAP_SERVERS: kafka-service:9092
   OTP_TTL_SECONDS: "300"
   OTP_MAX_VERIFY_ATTEMPTS: "3"
   OTP_RESEND_COOLDOWN_SECONDS: "30"
@@ -58,22 +59,10 @@ env:
   LOGGING_LEVEL_AZ_FITNEST_IDENTITY: DEBUG
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
   USER_SERVICE_URL: "http://user-service:8080"
-livenessProbe:
-  httpGet:
-    path: /actuator/health
-    port: http
-  initialDelaySeconds: 30
-  periodSeconds: 15
-readinessProbe:
-  httpGet:
-    path: /actuator/health
-    port: http
-  initialDelaySeconds: 20
-  periodSeconds: 10
 resources:
   requests:
-    cpu: 250m
-    memory: 256Mi
+    cpu: 100m
+    memory: 448Mi
   limits:
     cpu: 500m
-    memory: 512Mi
+    memory: 768Mi
