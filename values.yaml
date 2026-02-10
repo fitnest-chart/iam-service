@@ -1,6 +1,6 @@
 replicaCount: 1
 image:
-  repository: ghcr.io/fitnest-backend/iam-service
+  repository: ghcr.io/fitnest-backend/identity-service
   tag: "development-ec2e037"
   pullPolicy: IfNotPresent
   imagePullSecrets:
@@ -10,20 +10,19 @@ service:
   port: 8080
 istio:
   enabled: true
-  host: "iam-service"
+  host: "identity-service"
   mtls:
     mode: STRICT
   authorization:
     internalCallers:
       - "cluster.local/ns/fitnest-dev/sa/user-service"
       - "cluster.local/ns/fitnest-dev/sa/payment-service"
-      - "cluster.local/ns/fitnest-dev/sa/catalog-service"
-      - "cluster.local/ns/fitnest-dev/sa/commerce-service"
-      - "cluster.local/ns/fitnest-dev/sa/fitmarket-service"
+      - "cluster.local/ns/fitnest-dev/sa/marketplace-service"
+      - "cluster.local/ns/fitnest-dev/sa/order-service"
       - "cluster.local/ns/fitnest-dev/sa/notifications-service"
-      - "cluster.local/ns/fitnest-dev/sa/subscription-service"
       - "cluster.local/ns/fitnest-dev/sa/support-service"
       - "cluster.local/ns/fitnest-dev/sa/media-service"
+      - "cluster.local/ns/fitnest-dev/sa/fitness-plan-service"
       - "cluster.local/ns/fitnest-dev/sa/api-gateway"
 env:
   JWT_SECRET: your-jwt-secret-change-in-production

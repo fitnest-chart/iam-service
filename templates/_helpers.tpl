@@ -1,8 +1,8 @@
-{{- define "iam-service.name" -}}
+{{- define "identity-service.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
-{{- define "iam-service.fullname" -}}
+{{- define "identity-service.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -11,14 +11,14 @@
 {{- end }}
 {{- end }}
 
-{{- define "iam-service.labels" -}}
+{{- define "identity-service.labels" -}}
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-app.kubernetes.io/name: {{ include "iam-service.name" . }}
+app.kubernetes.io/name: {{ include "identity-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
-{{- define "iam-service.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "iam-service.name" . }}
+{{- define "identity-service.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "identity-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

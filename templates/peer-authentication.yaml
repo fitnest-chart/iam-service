@@ -2,13 +2,13 @@
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
-  name: {{ include "iam-service.fullname" . }}-mtls
+  name: {{ include "identity-service.fullname" . }}-mtls
   labels:
-    {{- include "iam-service.labels" . | nindent 4 }}
+    {{- include "identity-service.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "iam-service.selectorLabels" . | nindent 6 }}
+      {{- include "identity-service.selectorLabels" . | nindent 6 }}
   mtls:
     mode: {{ .Values.istio.mtls.mode | default "STRICT" }}
 {{- end }}

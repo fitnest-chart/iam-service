@@ -2,13 +2,13 @@
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: {{ include "iam-service.fullname" . }}-allow-internal
+  name: {{ include "identity-service.fullname" . }}-allow-internal
   labels:
-    {{- include "iam-service.labels" . | nindent 4 }}
+    {{- include "identity-service.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "iam-service.selectorLabels" . | nindent 6 }}
+      {{- include "identity-service.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
   # Allow internal service-to-service calls to /api/v1/internal/* endpoints

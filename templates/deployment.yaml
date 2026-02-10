@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "iam-service.fullname" . }}
+  name: {{ include "identity-service.fullname" . }}
   labels:
-    {{- include "iam-service.labels" . | nindent 4 }}
+    {{- include "identity-service.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "iam-service.selectorLabels" . | nindent 6 }}
+      {{- include "identity-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "iam-service.selectorLabels" . | nindent 8 }}
+        {{- include "identity-service.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "iam-service.fullname" . }}
+      serviceAccountName: {{ include "identity-service.fullname" . }}
       {{- with .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
