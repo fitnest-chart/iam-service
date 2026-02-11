@@ -11,7 +11,19 @@ spec:
       {{- include "identity-service.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
-  # Allow internal service-to-service calls
+  # Allow gRPC traffic on port 9090 from internal services
+  - from:
+    - source:
+        {{- if .Values.istio.authorization }}
+        {{- if .Values.istio.authorization.internalCallers }}
+        principals: {{ .Values.istio.authorization.internalCallers | toJson }}
+        {{- end }}
+        {{- end }}
+    to:
+    - operation:
+        ports: ["9090"]
+
+  # Allow internal service-to-service calls (HTTP)
   - from:
     - source:
         {{- if .Values.istio.authorization }}
