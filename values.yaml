@@ -25,6 +25,12 @@ istio:
       - "cluster.local/ns/fitnest-dev/sa/media-service"
       - "cluster.local/ns/fitnest-dev/sa/fitness-plan-service"
       - "cluster.local/ns/fitnest-dev/sa/api-gateway"
+hpa:
+  enabled: false
+  minReplicas: "1"
+  maxReplicas: "3"
+  cpuUtilization: "90"
+  memoryUtilization: "450Mi"
 env:
   JAVA_OPTS: "-XX:TieredStopAtLevel=1 -Xss256k -Xmx448m"
   JWT_SECRET: your-jwt-secret-change-in-production
@@ -55,9 +61,10 @@ env:
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
   USER_SERVICE_URL: "http://user-service:8080"
 resources:
-  requests:
-    cpu: 100m
-    memory: 448Mi
+  enabled: true
   limits:
-    cpu: 500m
-    memory: 768Mi
+    memory: 512Mi
+    cpu: 0.5
+  requests:
+    cpu: 0.25
+    memory: 256Mi
