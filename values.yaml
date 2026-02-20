@@ -59,7 +59,7 @@ env:
   LOGGING_LEVEL_ROOT: INFO
   LOGGING_LEVEL_AZ_FITNEST_IDENTITY: DEBUG
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
-  USER_SERVICE_URL: "http://user-service:8080"
+  USER_SERVICE_URL: "http://user-service:9090"
 resources:
   limits:
     memory: 512Mi
