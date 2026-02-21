@@ -32,7 +32,7 @@ hpa:
   cpuUtilization: "90"
   memoryUtilization: "450Mi"
 env:
-  JAVA_OPTS: "-XX:TieredStopAtLevel=1 -Xss256k -Xmx448m"
+  JAVA_OPTS: "-Xmx480m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xss256k"
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
@@ -62,7 +62,7 @@ env:
   USER_SERVICE_URL: "http://user-service:8080"
 resources:
   limits:
-    memory: 512Mi
+    memory: 640Mi
     cpu: 500m
   requests:
     cpu: 250m
