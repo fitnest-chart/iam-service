@@ -18,7 +18,7 @@ istio:
     internalCallers:
       - "cluster.local/ns/fitnest-dev/sa/user-service"
       - "cluster.local/ns/fitnest-dev/sa/payment-service"
-      - "cluster.local/ns/fitnest-dev/sa/marketplace-service"
+      - "cluster.local/ns/fitnest-dev/sa/catalog-service"
       - "cluster.local/ns/fitnest-dev/sa/order-service"
       - "cluster.local/ns/fitnest-dev/sa/notifications-service"
       - "cluster.local/ns/fitnest-dev/sa/support-service"
