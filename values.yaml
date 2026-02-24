@@ -32,7 +32,7 @@ hpa:
   cpuUtilization: "90"
   memoryUtilization: "450Mi"
 env:
-  JAVA_OPTS: "-Xmx480m -Xms256m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xss256k"
+  JAVA_OPTS: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=65.0 -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xss256k -XX:NativeMemoryTracking=summary"
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
@@ -57,13 +57,13 @@ env:
   OTP_RATE_LIMIT_MIN_COOLDOWN_SECONDS: "5"
   OTP_RATE_LIMIT_ERROR_MESSAGE_THRESHOLD_SECONDS: "30"
   LOGGING_LEVEL_ROOT: INFO
-  LOGGING_LEVEL_AZ_FITNEST_IDENTITY: DEBUG
-  LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: DEBUG
+  LOGGING_LEVEL_AZ_FITNEST_IDENTITY: INFO
+  LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: INFO
   USER_SERVICE_URL: "http://user-service:8080"
 resources:
   limits:
     memory: 640Mi
-    cpu: 500m
+    cpu: 1000m
   requests:
     cpu: 250m
     memory: 256Mi
