@@ -66,9 +66,9 @@ env:
 resources:
   limits:
     memory: 1Gi
-    cpu: 1000m
-  requests:
     cpu: 500m
+  requests:
+    cpu: 250m
     memory: 512Mi
 
 livenessProbe:
