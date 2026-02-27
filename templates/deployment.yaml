@@ -42,25 +42,5 @@ spec:
           value: {{ $value | quote }}
         {{- end }}
         {{- end }}
-        livenessProbe:
-          {{- if .Values.livenessProbe }}
-          {{- toYaml .Values.livenessProbe | nindent 10 }}
-          {{- else }}
-          httpGet:
-            path: /actuator/health/liveness
-            port: http
-          initialDelaySeconds: 60
-          periodSeconds: 15
-          {{- end }}
-        readinessProbe:
-          {{- if .Values.readinessProbe }}
-          {{- toYaml .Values.readinessProbe | nindent 10 }}
-          {{- else }}
-          httpGet:
-            path: /actuator/health/readiness
-            port: http
-          initialDelaySeconds: 45
-          periodSeconds: 10
-          {{- end }}
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
