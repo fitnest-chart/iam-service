@@ -30,9 +30,11 @@ hpa:
   minReplicas: "1"
   maxReplicas: "3"
   cpuUtilization: "90"
-  memoryUtilization: "450Mi"
+  memoryUtilization: "600Mi"
+
 env:
-  JAVA_OPTS: "-Xmx384m -Xms200m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xss256k"
+  # Using JAVA_TOOL_OPTIONS instead of JAVA_OPTS simplifies entrypoint and ensures it's picked up by the JVM
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=70 -XX:InitialRAMPercentage=50 -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xss256k -XX:+ExitOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof"
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
@@ -60,10 +62,28 @@ env:
   LOGGING_LEVEL_ROOT: INFO
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: INFO
   USER_SERVICE_URL: "http://user-service:8080"
+
 resources:
   limits:
-    memory: 768Mi
-    cpu: 500m
+    memory: 1Gi
+    cpu: 1000m
   requests:
-    cpu: 250m
-    memory: 384Mi
+    cpu: 500m
+    memory: 512Mi
+
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 15
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: http
+  initialDelaySeconds: 45
+  periodSeconds: 10
+  successThreshold: 1
+  failureThreshold: 3
