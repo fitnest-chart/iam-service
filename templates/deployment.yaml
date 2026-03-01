@@ -1,46 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "identity-service.fullname" . }}
+  name: { { include "identity-service.fullname" . } }
   labels:
-    {{- include "identity-service.labels" . | nindent 4 }}
+    { { - include "identity-service.labels" . | nindent 4 } }
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: { { .Values.replicaCount } }
   selector:
     matchLabels:
-      {{- include "identity-service.selectorLabels" . | nindent 6 }}
+      { { - include "identity-service.selectorLabels" . | nindent 6 } }
   template:
     metadata:
       labels:
-        {{- include "identity-service.selectorLabels" . | nindent 8 }}
+        { { - include "identity-service.selectorLabels" . | nindent 8 } }
       annotations:
-        {{- if .Values.istio.enabled }}
+        { { - if .Values.istio.enabled } }
         sidecar.istio.io/inject: "true"
-        {{- end }}
+        { { - end } }
     spec:
-      serviceAccountName: {{ include "identity-service.fullname" . }}
-      {{- with .Values.image.imagePullSecrets }}
+      serviceAccountName: { { include "identity-service.fullname" . } }
+      { { - with .Values.image.imagePullSecrets } }
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        { { - toYaml . | nindent 8 } }
+      { { - end } }
       terminationGracePeriodSeconds: 60
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - name: http
-          containerPort: {{ .Values.service.port }}
-          protocol: TCP
-        - name: grpc
-          containerPort: {{ .Values.service.grpcPort }}
-          protocol: TCP
-        {{- if .Values.env }}
-        env:
-        {{- range $key, $value := .Values.env }}
-        - name: {{ $key }}
-          value: {{ $value | quote }}
-        {{- end }}
-        {{- end }}
-        resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+        - name: { { .Chart.Name } }
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: { { .Values.image.pullPolicy } }
+          ports:
+            - name: http
+              containerPort: { { .Values.service.port } }
+              protocol: TCP
+            - name: grpc
+              containerPort: { { .Values.service.grpcPort } }
+              protocol: TCP
+          { { - if .Values.env } }
+          env:
+          { { - range $key, $value := .Values.env } }
+          - name: { { $key } }
+            value: { { $value | quote } }
+          { { - end } }
+          { { - end } }
+          resources:
+            { { - toYaml .Values.resources | nindent 10 } }
