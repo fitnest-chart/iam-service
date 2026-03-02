@@ -33,7 +33,7 @@ hpa:
   memoryUtilization: "600Mi"
 env:
   # Using JAVA_TOOL_OPTIONS instead of JAVA_OPTS simplifies entrypoint and ensures it's picked up by the JVM
-  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=70 -XX:InitialRAMPercentage=50 -XX:+UseZGC -XX:+ZGenerational -Xss256k -XX:+ExitOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof"
+  JAVA_TOOL_OPTIONS: "-XX:MaxRAMPercentage=70 -XX:InitialRAMPercentage=50 -XX:+UseZGC -Xss256k -XX:+ExitOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof"
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
