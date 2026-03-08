@@ -63,7 +63,7 @@ env:
   USER_SERVICE_URL: "http://user-service:8080"
 resources:
   requests:
-    cpu: 200m
+    cpu: 150m
     memory: 450Mi
   limits:
     cpu: 500m
