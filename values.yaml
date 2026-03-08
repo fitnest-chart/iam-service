@@ -33,7 +33,16 @@ hpa:
   memoryUtilization: "600Mi"
 env:
   # Using JAVA_TOOL_OPTIONS instead of JAVA_OPTS simplifies entrypoint and ensures it's picked up by the JVM
-  JAVA_TOOL_OPTIONS: "-Xms256m -Xmx400m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:MaxMetaspaceSize=128m -Xss512k -XX:+ExitOnOutOfMemoryError"
+  JAVA_TOOL_OPTIONS: >
+    -Xms256m
+    -Xmx512m
+    -XX:+UseG1GC
+    -XX:MaxGCPauseMillis=200
+    -XX:+ParallelRefProcEnabled
+    -XX:MaxMetaspaceSize=160m
+    -XX:+AlwaysPreTouch
+    -Xss512k
+    -XX:+ExitOnOutOfMemoryError
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
@@ -63,8 +72,8 @@ env:
   USER_SERVICE_URL: "http://user-service:8080"
 resources:
   requests:
-    cpu: 150m
-    memory: 450Mi
+    cpu: 200m
+    memory: 512Mi
   limits:
-    cpu: 500m
-    memory: 800Mi
+    cpu: 1000m
+    memory: 1Gi
