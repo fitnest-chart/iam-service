@@ -50,8 +50,8 @@ env:
   SPRING_PROFILES_ACTIVE: dev
   SPRINGDOC_SERVER_URL: "https://dev-api.fitnest.az"
   SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-shared:5432/fitnest_identity?sslmode=disable
-  SPRING_DATASOURCE_USERNAME: fitnest_identity
-  SPRING_DATASOURCE_PASSWORD: identity_password_123
+  SPRING_DATASOURCE_USERNAME: "postgres"
+  SPRING_DATASOURCE_PASSWORD: "shared_password_root_123"
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
   SPRING_DATA_REDIS_HOST: redis
