@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: ghcr.io/fitnest-backend/identity-service
-  tag: "development-f8c1c34"
+  tag: "development-6c0e128"
   pullPolicy: IfNotPresent
   imagePullSecrets:
     - name: ghcr-secret
@@ -34,15 +34,8 @@ hpa:
 env:
   # Using JAVA_TOOL_OPTIONS instead of JAVA_OPTS simplifies entrypoint and ensures it's picked up by the JVM
   JAVA_TOOL_OPTIONS: >
-    -Xms256m
-    -Xmx768m
-    -XX:+UseG1GC
-    -XX:MaxGCPauseMillis=200
-    -XX:+ParallelRefProcEnabled
-    -XX:MaxMetaspaceSize=256m
-    -XX:+AlwaysPreTouch
-    -Xss512k
-    -XX:+ExitOnOutOfMemoryError
+    -Xms256m -Xmx768m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:MaxMetaspaceSize=256m -XX:+AlwaysPreTouch -Xss512k -XX:+ExitOnOutOfMemoryError
+
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
