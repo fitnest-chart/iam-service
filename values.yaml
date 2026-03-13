@@ -63,6 +63,8 @@ env:
   LOGGING_LEVEL_ROOT: INFO
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: INFO
   USER_SERVICE_URL: "http://user-service:8080"
+  ORDER_SERVICE_GRPC_HOST: "order-service"
+  ORDER_SERVICE_GRPC_PORT: "9090"
 resources:
   requests:
     cpu: 400m
