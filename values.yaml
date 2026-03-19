@@ -67,8 +67,8 @@ env:
   ORDER_SERVICE_GRPC_PORT: "9090"
 resources:
   requests:
-    cpu: 400m
-    memory: 512Mi
+    cpu: 20m
+    memory: 935Mi
   limits:
     cpu: 1000m
-    memory: 1024Mi
+    memory: 1438Mi
