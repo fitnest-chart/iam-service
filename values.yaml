@@ -66,6 +66,13 @@ env:
   USER_SERVICE_URL: "http://user-service:8080"
   ORDER_SERVICE_GRPC_HOST: "order-service"
   ORDER_SERVICE_GRPC_PORT: "9090"
+envSecrets:
+  GOOGLE_CLIENT_ID:
+    secretName: google-secret
+    secretKey: client-id
+  GOOGLE_CLIENT_SECRET:
+    secretName: google-secret
+    secretKey: client-secret
 resources:
   requests:
     cpu: 20m
