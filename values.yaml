@@ -1,33 +1,38 @@
 # values.yaml for identity-backend
 
 replicaCount: 1
+
 image:
   repository: ghcr.io/fitnest-code/identity-backend
-  tag: "development-d25e5b5"
+  tag: "development-16a73c9"
   pullPolicy: IfNotPresent
   imagePullSecrets:
     - name: ghcr-secret
+
 service:
   type: ClusterIP
   port: 8080
   grpcPort: 9090
+
 # NetworkPolicy replaces Istio AuthorizationPolicy
 networkPolicy:
   enabled: true
   # Allowed sources (service accounts) are mapped to pod label selectors
   # The api-gateway is already allowed by default in the template
-  extraIngressRules: []
-  # Add any additional sources that need direct access (e.g., monitoring)
+  extraIngressRules:
+    # Add any additional sources that need direct access (e.g., monitoring)
+    []
+
 hpa:
   enabled: false
   minReplicas: "1"
   maxReplicas: "3"
   cpuUtilization: "90"
   memoryUtilization: "600Mi"
+
 env:
   JAVA_TOOL_OPTIONS: >
     -Xms256m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:MaxMetaspaceSize=256m -XX:+AlwaysPreTouch -Xss512k -XX:+ExitOnOutOfMemoryError
-
   JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
@@ -55,10 +60,11 @@ env:
   LOGGING_LEVEL_ROOT: INFO
   LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY: INFO
   LOGGING_LEVEL_AZ_FITNEST_IDENTITY: DEBUG
-  USER_SERVICE_URL: "http://user-backend:8080"
-  USER_SERVICE_GRPC_ADDRESS: "dns:///user-backend.fitnest-dev.svc.cluster.local:9090"
-  ORDER_SERVICE_GRPC_HOST: "order-backend"
-  ORDER_SERVICE_GRPC_PORT: "9090"
+  USER_BACKEND_URL: "http://user-backend:8080"
+  USER_BACKEND_GRPC_ADDRESS: "dns:///user-backend.fitnest-dev.svc.cluster.local:9090"
+  ORDER_BACKEND_GRPC_HOST: "order-backend"
+  ORDER_BACKEND_GRPC_PORT: "9090"
+
 envSecrets:
   GOOGLE_CLIENT_ID:
     secretName: google-secret
@@ -66,6 +72,7 @@ envSecrets:
   GOOGLE_CLIENT_SECRET:
     secretName: google-secret
     secretKey: client-secret
+
 resources:
   requests:
     cpu: 20m
