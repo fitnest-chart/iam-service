@@ -1,14 +1,13 @@
-{{/*
-Expand the name of the chart.
-*/}}
-{{- define "identity-service.name" -}}
+{{- /*
+    Generic helpers that use .Chart.Name for all naming.
+    Include these using "app.name", "app.fullname", "app.labels", "app.selectorLabels".
+*/ -}}
+
+{{- define "app.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
-{{/*
-Create a default fully qualified app name.
-*/}}
-{{- define "identity-service.fullname" -}}
+{{- define "app.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -17,20 +16,15 @@ Create a default fully qualified app name.
 {{- end }}
 {{- end }}
 
-{{/*
-Common labels
-*/}}
-{{- define "identity-service.labels" -}}
-helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-app.kubernetes.io/name: {{ include "identity-service.name" . }}
+{{- define "app.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+app.kubernetes.io/name: {{ include "app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
-{{/*
-Selector labels
-*/}}
-{{- define "identity-service.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "identity-service.name" . }}
+{{- define "app.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "app.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

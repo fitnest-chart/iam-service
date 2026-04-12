@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "identity-service.fullname" . }}
+  name: {{ include "app.fullname" . }}
   labels:
-    {{- include "identity-service.labels" . | nindent 4 }}
+    {{- include "app.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "identity-service.selectorLabels" . | nindent 6 }}
+      {{- include "app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "identity-service.selectorLabels" . | nindent 8 }}
+        {{- include "app.selectorLabels" . | nindent 8 }}
     spec:
-      serviceAccountName: {{ include "identity-service.fullname" . }}
+      serviceAccountName: {{ include "app.fullname" . }}
       {{- with .Values.image.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -32,20 +32,20 @@ spec:
               containerPort: {{ .Values.service.grpcPort }}
               protocol: TCP
           env:
-          {{- if .Values.env }}
-          {{- range $key, $value := .Values.env }}
-          - name: {{ $key }}
-            value: {{ $value | quote }}
-          {{- end }}
-          {{- end }}
-          {{- if .Values.envSecrets }}
-          {{- range $key, $secret := .Values.envSecrets }}
-          - name: {{ $key }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ $secret.secretName }}
-                key: {{ $secret.secretKey }}
-          {{- end }}
-          {{- end }}
+            {{- if .Values.env }}
+              {{- range $key, $value := .Values.env }}
+              - name: {{ $key }}
+                value: {{ $value | quote }}
+              {{- end }}
+              {{- end }}
+              {{- if .Values.envSecrets }}
+              {{- range $key, $secret := .Values.envSecrets }}
+              - name: {{ $key }}
+                valueFrom:
+                  secretKeyRef:
+                    name: {{ $secret.secretName }}
+                    key: {{ $secret.secretKey }}
+              {{- end }}
+              {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
