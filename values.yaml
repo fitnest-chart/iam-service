@@ -1,3 +1,4 @@
+vaultEnv: dev
 # values.yaml for identity-backend
 
 replicaCount: 1
@@ -28,7 +29,6 @@ env:
   JAVA_TOOL_OPTIONS: >
     -Xms256m -Xmx512m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+ParallelRefProcEnabled -XX:MaxMetaspaceSize=256m -XX:+AlwaysPreTouch -Xss512k -XX:+ExitOnOutOfMemoryError
 
-  JWT_SECRET: your-jwt-secret-change-in-production
   JWT_ISSUER: fitnest
   JWT_ACCESS_TTL_SECONDS: "3600"
   JWT_REFRESH_TTL_SECONDS: "604800"
@@ -36,12 +36,10 @@ env:
   SPRINGDOC_SERVER_URL: "https://dev-api.fitnest.az"
   SPRING_DATASOURCE_URL: jdbc:postgresql://10.0.0.4:5432/fitnest_identity?sslmode=disable
   SPRING_DATASOURCE_USERNAME: "postgres"
-  SPRING_DATASOURCE_PASSWORD: "shared_password_root_123"
   SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
   SPRING_JPA_HIBERNATE_DDL_AUTO: update
   SPRING_DATA_REDIS_HOST: "10.0.0.4"
   SPRING_DATA_REDIS_PORT: "6380"
-  SPRING_DATA_REDIS_PASSWORD: "ChangeMeDevRedis!"
   SPRING_DATA_REDIS_TIMEOUT: "2000ms"
   KAFKA_BOOTSTRAP_SERVERS: "10.0.0.4:9092"
   OTP_TTL_SECONDS: "300"
@@ -59,13 +57,6 @@ env:
   USER_BACKEND_GRPC_ADDRESS: "dns:///user-backend.fitnest-development.svc.cluster.local:9090"
   ORDER_BACKEND_GRPC_HOST: "order-backend"
   ORDER_BACKEND_GRPC_PORT: "9090"
-envSecrets:
-  GOOGLE_CLIENT_ID:
-    secretName: google-secret
-    secretKey: client-id
-  GOOGLE_CLIENT_SECRET:
-    secretName: google-secret
-    secretKey: client-secret
 resources:
   requests:
     cpu: 20m
