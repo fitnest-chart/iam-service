@@ -4,7 +4,7 @@ vaultEnv: dev
 replicaCount: 1
 image:
   repository: ghcr.io/fitnest-code/identity-backend
-  tag: "development-d5a2955"
+  tag: "development-f714d06"
   pullPolicy: IfNotPresent
   imagePullSecrets:
     - name: ghcr-secret
