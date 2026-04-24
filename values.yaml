@@ -6,10 +6,10 @@ hpa:
   minReplicas: '1'
 image:
   imagePullSecrets:
-  - name: ghcr-secret
+    - name: ghcr-secret
   pullPolicy: IfNotPresent
   repository: ghcr.io/fitnest-code/identity-backend
-  tag: development-f714d06
+  tag: production-f714d06
 networkPolicy:
   enabled: true
   extraIngressRules: []
