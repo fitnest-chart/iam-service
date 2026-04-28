@@ -9,7 +9,7 @@ image:
     - name: ghcr-secret
   pullPolicy: IfNotPresent
   repository: ghcr.io/fitnest-code/identity-backend
-  tag: development-5788b68
+  tag: development-c41e53b
 networkPolicy:
   enabled: true
   extraIngressRules: []
